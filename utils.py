@@ -229,6 +229,9 @@ class ForecastingEngine:
             # Prepare data for Prophet
             df = data.reset_index()[['Date', 'Close']].rename(columns={'Date': 'ds', 'Close': 'y'})
             
+            # Remove timezone from ds column
+            df['ds'] = df['ds'].dt.tz_localize(None)
+            
             # Create and fit model
             model = Prophet(daily_seasonality=True)
             model.fit(df)

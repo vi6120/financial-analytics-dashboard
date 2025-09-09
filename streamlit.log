@@ -1,8 +1,11 @@
 
-      👋 Welcome to Streamlit!
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to False.
 
-      If you’d like to receive helpful onboarding emails, news, offers, promotions,
-      and the occasional swag, please enter your email address below. Otherwise,
-      leave this field blank.
 
-      Email:  2025-09-09 19:06:51.342 
+  You can now view your Streamlit app in your browser.
+
+  Network URL: http://10.6.0.249:8501
+  External URL: http://139.13.81.55:8501
+
+19:21:13 - cmdstanpy - INFO - Chain [1] start processing
+19:21:14 - cmdstanpy - INFO - Chain [1] done processing
