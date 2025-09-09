@@ -12,6 +12,11 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Author information
+st.sidebar.markdown("---")
+st.sidebar.markdown("**Author:** Vikas Ramaswamy")
+st.sidebar.markdown("**Version:** 1.0")
+
 # Custom CSS
 st.markdown("""
 <style>
@@ -47,6 +52,7 @@ if 'forecasting_engine' not in st.session_state:
 
 def main():
     st.markdown('<h1 class="main-header">Financial Analytics Dashboard</h1>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align: center; color: #666; margin-bottom: 2rem;">Created by Vikas Ramaswamy</p>', unsafe_allow_html=True)
     
     # Sidebar
     st.sidebar.markdown('<div class="sidebar-header">Configuration</div>', unsafe_allow_html=True)
@@ -399,9 +405,10 @@ def forecasting_analysis():
                     fig.add_trace(go.Scatter(
                         x=forecast['Date'],
                         y=forecast['Forecast'],
-                        mode='lines',
+                        mode='lines+markers',
                         name='ARIMA Forecast',
-                        line=dict(color='red', dash='dash')
+                        line=dict(color='red', dash='dash'),
+                        marker=dict(size=4)
                     ))
                 
                 fig.update_layout(
@@ -414,9 +421,25 @@ def forecasting_analysis():
                 st.plotly_chart(fig, use_container_width=True)
                 
                 # Forecast summary
+                current_price = data['Close'].iloc[-1]
+                
                 if model_type == "Prophet":
-                    current_price = data['Close'].iloc[-1]
                     forecast_price = forecast_data['yhat'].iloc[-1]
+                    price_change = ((forecast_price - current_price) / current_price) * 100
+                    
+                    col1, col2, col3 = st.columns(3)
+                    
+                    with col1:
+                        st.metric("Current Price", f"${current_price:.2f}")
+                    
+                    with col2:
+                        st.metric("Forecast Price", f"${forecast_price:.2f}")
+                    
+                    with col3:
+                        st.metric("Expected Change", f"{price_change:+.2f}%")
+                
+                else:  # ARIMA
+                    forecast_price = forecast['Forecast'].iloc[-1]
                     price_change = ((forecast_price - current_price) / current_price) * 100
                     
                     col1, col2, col3 = st.columns(3)

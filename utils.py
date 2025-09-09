@@ -7,6 +7,7 @@ from plotly.subplots import make_subplots
 import ta
 from prophet import Prophet
 from statsmodels.tsa.arima.model import ARIMA
+from statsmodels.tsa.stattools import adfuller
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -249,20 +250,44 @@ class ForecastingEngine:
     def arima_forecast(data, days=30):
         """Generate forecast using ARIMA"""
         try:
-            # Fit ARIMA model
-            model = ARIMA(data['Close'], order=(1, 1, 1))
-            fitted_model = model.fit()
+            # Prepare data - remove timezone if present
+            close_prices = data['Close'].dropna()
+            
+            # Try different ARIMA orders if (1,1,1) fails
+            orders_to_try = [(1, 1, 1), (2, 1, 2), (1, 1, 0), (0, 1, 1), (2, 1, 1)]
+            
+            fitted_model = None
+            for order in orders_to_try:
+                try:
+                    model = ARIMA(close_prices, order=order)
+                    fitted_model = model.fit()
+                    break
+                except:
+                    continue
+            
+            if fitted_model is None:
+                raise Exception("Could not fit ARIMA model with any parameter combination")
             
             # Generate forecast
-            forecast = fitted_model.forecast(steps=days)
+            forecast_result = fitted_model.forecast(steps=days)
+            
+            # Handle both array and single value returns
+            if hasattr(forecast_result, '__len__'):
+                forecast_values = forecast_result
+            else:
+                forecast_values = [forecast_result] * days
             
             # Create forecast dataframe
             last_date = data.index[-1]
+            # Remove timezone from last_date if present
+            if hasattr(last_date, 'tz_localize'):
+                last_date = last_date.tz_localize(None)
+            
             future_dates = pd.date_range(start=last_date + pd.Timedelta(days=1), periods=days)
             
             forecast_df = pd.DataFrame({
                 'Date': future_dates,
-                'Forecast': forecast
+                'Forecast': forecast_values[:days]  # Ensure we only take the requested number of days
             })
             
             return forecast_df
