@@ -16,9 +16,6 @@ st.set_page_config(
 st.sidebar.markdown("---")
 st.sidebar.markdown("**Author:** Vikas Ramaswamy")
 st.sidebar.markdown("**Version:** 1.0")
-st.sidebar.markdown("---")
-st.sidebar.markdown("⚠️ **Disclaimer:** This tool is for educational purposes only. Not financial advice. Open source project.")
-st.sidebar.markdown("📖 [GitHub Repository](https://github.com/vikasramaswamy/financial-analytics-dashboard)")
 
 # Custom CSS
 st.markdown("""
@@ -55,8 +52,6 @@ if 'forecasting_engine' not in st.session_state:
 
 def main():
     st.markdown('<h1 class="main-header">Financial Analytics Dashboard</h1>', unsafe_allow_html=True)
-    st.markdown('<p style="text-align: center; color: #666; margin-bottom: 1rem;">Created by Vikas Ramaswamy</p>', unsafe_allow_html=True)
-    st.markdown('<p style="text-align: center; color: #888; font-size: 0.9rem; margin-bottom: 2rem;">📚 Educational Tool | 🔓 Open Source | ⚠️ Not Financial Advice</p>', unsafe_allow_html=True)
     
     # Sidebar
     st.sidebar.markdown('<div class="sidebar-header">Configuration</div>', unsafe_allow_html=True)
@@ -462,3 +457,18 @@ def forecasting_analysis():
 
 if __name__ == "__main__":
     main()
+    
+    # Footer disclaimer
+    st.markdown("---")
+    with st.expander("⚠️ Important Disclaimer - Click to Read"):
+        st.markdown("""
+        **📚 Educational Use Only:** This tool is for educational purposes only and is provided as an open source project.
+        
+        **⚠️ Not Financial Advice:** This should NOT be considered as financial advice. Do not use for actual investment decisions.
+        
+        **🔓 Open Source:** Free to use, modify, and distribute. Created by Vikas Ramaswamy.
+        
+        **📈 No Guarantees:** Past performance does not guarantee future results. Always consult with qualified financial professionals before making investment decisions.
+        """)
+    
+    st.markdown('<p style="text-align: center; color: #888; font-size: 0.8rem; margin-top: 1rem;">© 2024 Vikas Ramaswamy | Educational Project | Open Source</p>', unsafe_allow_html=True)
