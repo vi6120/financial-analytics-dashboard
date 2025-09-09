@@ -1,5 +1,7 @@
 # Financial Analytics Dashboard
 
+🚀 **[Live Demo](https://my-finance-overview.streamlit.app/)** - Try the dashboard now!
+
 A comprehensive Python-based financial analytics dashboard that demonstrates end-to-end data analytics skills including data collection, cleaning, exploratory data analysis (EDA), visualization, and forecasting.
 
 ## Project Overview
