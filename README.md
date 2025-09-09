@@ -175,6 +175,23 @@ Contributions are welcome! Please feel free to submit pull requests or open issu
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
+## Open Source
+
+This is an open source educational project. Contributions, suggestions, and improvements are welcome! Feel free to:
+- Fork the repository
+- Submit pull requests
+- Report issues
+- Suggest new features
+
+**Author:** Vikas Ramaswamy
+
 ## Disclaimer
 
-This tool is for educational and research purposes only. It should not be considered as financial advice. Always consult with qualified financial professionals before making investment decisions.
+⚠️ **IMPORTANT:** This tool is for **educational purposes only** and is provided as an **open source project**. It should **NOT** be considered as financial advice. The information and analysis provided by this dashboard are for learning and demonstration purposes only.
+
+- 📚 **Educational Use Only:** This project is designed to demonstrate financial data analysis techniques
+- 🔓 **Open Source:** Free to use, modify, and distribute under MIT License
+- ⚠️ **Not Financial Advice:** Do not use for actual investment decisions
+- 📈 **No Guarantees:** Past performance does not guarantee future results
+
+Always consult with qualified financial professionals before making any investment decisions.
