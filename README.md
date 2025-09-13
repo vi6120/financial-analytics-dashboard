@@ -1,6 +1,6 @@
 # Financial Analytics Dashboard
 
-🚀 **[Live Demo](https://my-finance-overview.streamlit.app/)** - Try the dashboard now!
+**[Live Demo](https://my-finance-overview.streamlit.app/)** - Try the dashboard now!
 
 A comprehensive Python-based financial analytics dashboard that demonstrates end-to-end data analytics skills including data collection, cleaning, exploratory data analysis (EDA), visualization, and forecasting.
 
@@ -189,11 +189,11 @@ This is an open source educational project. Contributions, suggestions, and impr
 
 ## Disclaimer
 
-⚠️ **IMPORTANT:** This tool is for **educational purposes only** and is provided as an **open source project**. It should **NOT** be considered as financial advice. The information and analysis provided by this dashboard are for learning and demonstration purposes only.
+**IMPORTANT:** This tool is for **educational purposes only** and is provided as an **open source project**. It should **NOT** be considered as financial advice. The information and analysis provided by this dashboard are for learning and demonstration purposes only.
 
-- 📚 **Educational Use Only:** This project is designed to demonstrate financial data analysis techniques
-- 🔓 **Open Source:** Free to use, modify, and distribute under MIT License
-- ⚠️ **Not Financial Advice:** Do not use for actual investment decisions
-- 📈 **No Guarantees:** Past performance does not guarantee future results
+- **Educational Use Only:** This project is designed to demonstrate financial data analysis techniques
+- **Open Source:** Free to use, modify, and distribute under MIT License
+- **Not Financial Advice:** Do not use for actual investment decisions
+- **No Guarantees:** Past performance does not guarantee future results
 
 Always consult with qualified financial professionals before making any investment decisions.

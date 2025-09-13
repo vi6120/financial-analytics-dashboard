@@ -53,6 +53,20 @@ if 'forecasting_engine' not in st.session_state:
 def main():
     st.markdown('<h1 class="main-header">Financial Analytics Dashboard</h1>', unsafe_allow_html=True)
     
+    # Professional header info
+    st.markdown("""
+    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid #1f77b4;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <strong>Author:</strong> Vikas Ramaswamy | <strong>Version:</strong> 1.0 | <strong>Technology:</strong> Python, yfinance, Prophet, Plotly
+            </div>
+            <div style="color: #6c757d; font-size: 0.9rem;">
+                Professional Financial Analytics & Forecasting Platform
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
     # Sidebar
     st.sidebar.markdown('<div class="sidebar-header">Configuration</div>', unsafe_allow_html=True)
     
@@ -460,15 +474,32 @@ if __name__ == "__main__":
     
     # Footer disclaimer
     st.markdown("---")
-    with st.expander("⚠️ Important Disclaimer - Click to Read"):
+    with st.expander("Important Disclaimer - Click to Read"):
         st.markdown("""
-        **📚 Educational Use Only:** This tool is for educational purposes only and is provided as an open source project.
+        **Educational Use Only:** This tool is for educational purposes only and is provided as an open source project.
         
-        **⚠️ Not Financial Advice:** This should NOT be considered as financial advice. Do not use for actual investment decisions.
+        **Not Financial Advice:** This should NOT be considered as financial advice. Do not use for actual investment decisions.
         
-        **🔓 Open Source:** Free to use, modify, and distribute. Created by Vikas Ramaswamy.
+        **Open Source:** Free to use, modify, and distribute. Created by Vikas Ramaswamy.
         
-        **📈 No Guarantees:** Past performance does not guarantee future results. Always consult with qualified financial professionals before making investment decisions.
+        **No Guarantees:** Past performance does not guarantee future results. Always consult with qualified financial professionals before making investment decisions.
         """)
     
-    st.markdown('<p style="text-align: center; color: #888; font-size: 0.8rem; margin-top: 1rem;">© 2024 Vikas Ramaswamy | Educational Project | Open Source</p>', unsafe_allow_html=True)
+    # Professional Footer
+    st.markdown("""
+    <div style="text-align: center; padding: 2rem; background: #f8f9fa; border-radius: 8px; margin-top: 2rem;">
+        <div style="margin-bottom: 1rem;">
+            <strong>Financial Analytics Dashboard</strong>
+        </div>
+        <div style="color: #6c757d; margin-bottom: 1rem;">
+            Professional financial analysis platform with real-time data, technical indicators, and ML forecasting
+        </div>
+        <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <div><strong>Features:</strong> Stock Analysis | Portfolio Management | Price Forecasting</div>
+            <div><strong>Technology:</strong> Python | yfinance | Prophet | Plotly</div>
+        </div>
+        <div style="color: #6c757d; font-size: 0.9rem;">
+            © 2024 Vikas Ramaswamy | Professional Analytics Portfolio | Educational Purpose Only
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
