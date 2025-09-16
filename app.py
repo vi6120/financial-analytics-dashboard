@@ -42,7 +42,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Initialize session state
+# Set up the analysis tools
 if 'processor' not in st.session_state:
     st.session_state.processor = FinancialDataProcessor()
 if 'chart_generator' not in st.session_state:
@@ -88,7 +88,7 @@ def main():
 def single_stock_analysis():
     st.subheader("Single Stock Analysis")
     
-    # Stock selection
+    # Choose which stock to analyze
     col1, col2 = st.columns([2, 1])
     
     with col1:
@@ -99,19 +99,19 @@ def single_stock_analysis():
     
     if st.button("Analyze Stock", type="primary"):
         try:
-            with st.spinner(f"Fetching data for {ticker}..."):
-                # Fetch and process data
+            with st.spinner(f"Getting data for {ticker}..."):
+                # Get the stock data and add indicators
                 data = st.session_state.processor.fetch_data(ticker, period)
                 data = st.session_state.processor.calculate_moving_averages(data)
                 data = st.session_state.processor.calculate_technical_indicators(data)
                 
-                # Get stock info
+                # Get basic company info
                 stock_info = get_stock_info(ticker)
                 
-                # Display stock information
+                # Show the results
                 st.success(f"Analysis complete for {stock_info['name']} ({ticker})")
                 
-                # Key metrics
+                # Show key numbers
                 col1, col2, col3, col4 = st.columns(4)
                 
                 current_price = data['Close'].iloc[-1]
@@ -131,7 +131,7 @@ def single_stock_analysis():
                     volatility = data['Daily_Return'].std() * np.sqrt(252) * 100
                     st.metric("Annual Volatility", f"{volatility:.1f}%")
                 
-                # Charts
+                # Show the price chart
                 st.subheader("Price Chart with Moving Averages")
                 price_chart = st.session_state.chart_generator.create_price_chart(data, ticker)
                 st.plotly_chart(price_chart, use_container_width=True)
@@ -150,12 +150,12 @@ def single_stock_analysis():
                     fig.update_layout(title="Daily Returns Distribution", template='plotly_white')
                     st.plotly_chart(fig, use_container_width=True)
                 
-                # Technical indicators
+                # Show technical analysis
                 st.subheader("Technical Indicators")
                 tech_chart = st.session_state.chart_generator.create_technical_indicators_chart(data, ticker)
                 st.plotly_chart(tech_chart, use_container_width=True)
                 
-                # Summary statistics
+                # Show data summary
                 st.subheader("Summary Statistics")
                 col1, col2 = st.columns(2)
                 
@@ -175,7 +175,7 @@ def single_stock_analysis():
 def multi_stock_comparison():
     st.subheader("Multi-Stock Comparison")
     
-    # Stock selection
+    # Choose multiple stocks to compare
     tickers_input = st.text_input(
         "Enter Stock Tickers (comma-separated)", 
         value="AAPL,GOOGL,MSFT,TSLA",
@@ -188,7 +188,7 @@ def multi_stock_comparison():
         try:
             tickers = [ticker.strip().upper() for ticker in tickers_input.split(',')]
             
-            with st.spinner("Fetching data for comparison..."):
+            with st.spinner("Getting data for all stocks..."):
                 comparison_data = {}
                 
                 for ticker in tickers:
@@ -197,10 +197,10 @@ def multi_stock_comparison():
                 
                 comparison_df = pd.DataFrame(comparison_data)
                 
-                # Normalize prices for comparison
+                # Make all stocks start at the same point for fair comparison
                 normalized_df = comparison_df / comparison_df.iloc[0]
                 
-                # Price comparison chart
+                # Show how the stocks performed relative to each other
                 st.subheader("Price Comparison (Normalized)")
                 fig = go.Figure()
                 
@@ -221,7 +221,7 @@ def multi_stock_comparison():
                 
                 st.plotly_chart(fig, use_container_width=True)
                 
-                # Correlation analysis
+                # See how closely the stocks move together
                 returns_df = comparison_df.pct_change().dropna()
                 correlation_matrix = returns_df.corr()
                 
@@ -258,7 +258,7 @@ def multi_stock_comparison():
 def portfolio_analysis():
     st.subheader("Portfolio Analysis")
     
-    # Portfolio configuration
+    # Set up your portfolio
     st.write("**Configure Your Portfolio**")
     
     num_stocks = st.slider("Number of Stocks", min_value=2, max_value=10, value=4)
@@ -277,7 +277,7 @@ def portfolio_analysis():
                 tickers.append(ticker.upper())
                 weights.append(weight/100)
     
-    # Normalize weights
+    # Make sure weights add up to 100%
     if sum(weights) != 0:
         weights = [w/sum(weights) for w in weights]
     
@@ -285,10 +285,10 @@ def portfolio_analysis():
     
     if st.button("Analyze Portfolio", type="primary") and tickers:
         try:
-            with st.spinner("Analyzing portfolio..."):
+            with st.spinner("Crunching portfolio numbers..."):
                 portfolio_metrics = st.session_state.processor.calculate_portfolio_metrics(tickers, weights, period)
                 
-                # Portfolio summary
+                # Show key portfolio stats
                 col1, col2, col3, col4 = st.columns(4)
                 
                 with col1:
@@ -303,7 +303,7 @@ def portfolio_analysis():
                 with col4:
                     st.metric("Sharpe Ratio", f"{portfolio_metrics['sharpe_ratio']:.2f}")
                 
-                # Portfolio performance chart
+                # Show how your portfolio performed over time
                 st.subheader("Portfolio Performance")
                 portfolio_chart = st.session_state.chart_generator.create_portfolio_chart(portfolio_metrics['cumulative_returns'])
                 st.plotly_chart(portfolio_chart, use_container_width=True)
@@ -343,15 +343,15 @@ def forecasting_analysis():
         ticker = st.text_input("Stock Ticker", value="AAPL").upper()
     
     with col2:
-        forecast_days = st.slider("Forecast Days", min_value=7, max_value=90, value=30)
+        forecast_days = st.slider("Days to Predict", min_value=7, max_value=90, value=30)
     
     with col3:
-        model_type = st.selectbox("Forecasting Model", ["Prophet", "ARIMA"])
+        model_type = st.selectbox("AI Model to Use", ["Prophet", "ARIMA"])
     
     if st.button("Generate Forecast", type="primary"):
         try:
-            with st.spinner(f"Generating {forecast_days}-day forecast for {ticker}..."):
-                # Fetch historical data
+            with st.spinner(f"Predicting {ticker} prices for the next {forecast_days} days..."):
+                # Get historical data to train the model
                 data = st.session_state.processor.fetch_data(ticker, "2y")
                 
                 if model_type == "Prophet":
